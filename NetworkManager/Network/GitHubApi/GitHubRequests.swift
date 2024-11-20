@@ -36,16 +36,18 @@ extension GitHubRequests: Endpoint {
     var header: [String : String]? {
         switch self {
         case .user, .usersList:
-            
             // MARK: provide token here from your GitHub account
-            let token = ""
+            let token: String? = nil
             
-            let header = [
+            var header = [
                 "Accept": "application/vnd.github+json",
 //                "Content-Type": "application/json;charset=utf-8"
-                "Authorization": "Bearer \(token)",
                 "X-GitHub-Api-Version": "2022-11-28"
             ]
+            
+            if let token {
+                header["Authorization"] = "Bearer \(token)"
+            }
             
             return header
         }
